@@ -4,8 +4,7 @@ from sklearn.linear_model import LinearRegression
 from pathlib import Path
 from Analysis.load_data import vel_data
 
-def model(df=vel_data(), station_name="NLBS", DOY=6):
-    
+def model(df, station_name="NLBS", DOY=6):
     print(f"station selected for linear fit is {station_name}")
 
     doy_col = f"{station_name}_DOY"
