@@ -16,3 +16,8 @@ def test_find_min_negatives():
     test_input = np.array([-2,-1,0,1])
     test_result = -2
     assert find_min(test_input) == test_result
+
+def test_find_min_nans():
+    test_input = np.array([np.nan,-1,0,1])
+    test_result = -1
+    assert find_min(test_input) == test_result
