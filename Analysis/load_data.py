@@ -6,13 +6,12 @@ import zipfile
 zip_path = Path("../Data/Glacier.zip")  # your .zip file
 extract_dir = Path("../Data/")          # folder to extract to
 
-def extract():
-    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-        zip_ref.extractall(extract_dir)
-    print("Extraction complete")
+with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    zip_ref.extractall(extract_dir)
 
-def stations():
-    df = pd.read_csv("../Data/Glacier/Glacier_transient_vel.csv")
+print("Extraction complete.")
+
+df = pd.read_csv("../Data/Glacier/Glacier_transient_vel.csv")
 #Identify stations and their velocity data
 stations = []
 for col in df.columns:
@@ -21,3 +20,5 @@ for col in df.columns:
         vel_col = f"{station}_VEL"
         if vel_col in df.columns:
             stations.append(station)
+
+print(stations)
