@@ -2,10 +2,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from pathlib import Path
+from load_data import vel_data
 import zipfile
 
-def model(station_name="NLBS", DOY=6):
-    df = pd.read_csv("Data/Glacier/Glacier_transient_vel.csv")
+def model(df= vel_data(), station_name="NLBS", DOY=6):
+    df = vel_data()
     print(f"station selected for linear fit is {station_name}")
 
     doy_col = f"{station_name}_DOY"
@@ -20,7 +21,10 @@ def model(station_name="NLBS", DOY=6):
     model = LinearRegression()
     model.fit(mdl_select[["DOY"]], mdl_select["Vel"])
 
-    return(float(model.coef_), model.intercept_)
+    coeff = float(model.coef_)
+    inter = model.intercept_
+
+    return(coeff, inter)
 
 
 

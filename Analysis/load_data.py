@@ -23,3 +23,7 @@ def read_stations():
                 stations.append(station)
 
     return stations
+
+def vel_data():
+    df = pd.read_csv("Data/Glacier/Glacier_transient_vel.csv")
+    return df
