@@ -1,0 +1,35 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from pathlib import Path
+import zipfile
+
+zip_path = Path("../Data/Glacier.zip")  # your .zip file
+extract_dir = Path("../Data/")          # folder to extract to
+
+with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    zip_ref.extractall(extract_dir)
+
+print("Extraction complete.")
+
+df = pd.read_csv("../Data/Glacier/Glacier_transient_vel.csv")
+#Identify stations and their velocity data
+stations = []
+station_name = "NLBS"
+for col in df.columns:
+    if "_DOY" in col:
+        station = col.split("_DOY")[0]
+        vel_col = f"{station}_VEL"
+        if vel_col in df.columns:
+            stations.append(station)
+
+print(stations)
+print(f"station selected for linear fit is {station_name}")
+
+doy_col = f"{station}_DOY"
+vel_col = f"{station}_VEL"
+
+x=df[doy_col]
+y=df[vel_col]
+
+
+
