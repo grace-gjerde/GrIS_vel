@@ -1,0 +1,32 @@
+#Plotting Velocity Time Series of all GPS Stations
+import matplotlib.pyplot as plt
+import pandas as pd
+
+import load_data
+df=load_data.vel_data()
+stations=load_data.read_stations()
+
+plt.figure(figsize=(10,6))
+
+for station in stations:
+    doy_col = f"{station}_DOY"
+    vel_col = f"{station}_VEL"
+
+    x=df[doy_col]
+    y=df[vel_col]
+
+    #plt.plot(x, y, marker='.', markersize=3, label=station)
+    plt.scatter(x, y, s=0.5, label=station)
+
+plt.title("2011 Velocity Time Series", fontsize=14)
+plt.xlabel("Day of Year (DOY)", fontsize=12)
+plt.ylabel("Velocity (m/year)", fontsize=12)
+plt.xlim(150, 300)
+plt.ylim(0, 400)
+plt.legend(title="Stations", fontsize=9)
+plt.tight_layout()
+
+plt.savefig("velocity_timeseries.png", dpi=300)
+plt.show()
+
+print("velocity_timeseries.png saved")
