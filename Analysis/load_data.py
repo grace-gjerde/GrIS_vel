@@ -12,7 +12,7 @@ def extract():
     print("Extraction complete.")
 
 def read_stations():
-    df = pd.read_csv("../Data/Glacier/Glacier_transient_vel.csv")
+    df = pd.read_csv("Data/Glacier/Glacier_transient_vel.csv")
     #Identify stations and their velocity data
     stations = []
     for col in df.columns:

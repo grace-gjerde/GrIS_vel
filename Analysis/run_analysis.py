@@ -1,7 +1,10 @@
 #run_analysis.py
 import sys
 from pathlib import Path
-from load_data import df, stations
+import load_data 
+
+df=load_data.vel_data()
+stations=load_data.read_stations()
 
 #add Analysis and Tools folder to Python path
 analysis_path = Path(__file__).parent / "Analysis"

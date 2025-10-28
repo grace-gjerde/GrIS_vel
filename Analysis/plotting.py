@@ -2,7 +2,9 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from load_data import df, stations
+import load_data
+df=load_data.vel_data()
+stations=load_data.read_stations()
 
 plt.figure(figsize=(10,6))
 
