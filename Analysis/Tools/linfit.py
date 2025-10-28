@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from pathlib import Path
 from Analysis.load_data import vel_data
-from decimal import Decimal
-
 
 def model(df=vel_data(), station_name="NLBS", DOY=6):
     
