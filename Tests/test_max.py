@@ -2,7 +2,7 @@
 
 import numpy as np
 from Analysis.Tools.find_max import max_vel
-from Analysis.load_data import vel_data, read_stations
+from Analysis.load_data import vel_data, read_stations, extract
 df=vel_data()
 stations=read_stations()
 
@@ -19,6 +19,7 @@ def test_max_negatives():
     assert max_vel(test_input) == 1
 
 def test_station_max_values():
+    extract()
     for station in stations:
         vel_col = f"{station}_VEL"
         velocity_data = df[vel_col].values
