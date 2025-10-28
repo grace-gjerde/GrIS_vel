@@ -13,8 +13,10 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-[tool.hatch.build]
-include=["GrIS_vel/*"]
+[tool.setuptools.packages.find]
+include = ["Data", "Analysis"]
+exclude = ["Tests"]
+
 [project.urls]
 Homepage = "https://github.com/grace-gjerde/Greenland_Transient_Velocity_Event_Characterizer"
 Issues = "https://github.com/grace-gjerde/Greenland_Transient_Velocity_Event_Characterizer/issues"
