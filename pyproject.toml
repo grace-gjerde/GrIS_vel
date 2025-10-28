@@ -13,6 +13,8 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
+[tool.setuptools.packages.find]
+include = ["Data", "Analysis", "Tests"]
 
 [project.urls]
 Homepage = "https://github.com/grace-gjerde/Greenland_Transient_Velocity_Event_Characterizer"
