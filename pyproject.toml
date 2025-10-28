@@ -1,0 +1,19 @@
+[project]
+name = "Greenland_Transient_Velocity_Event_Characterizer"
+version = "0.0.1"
+authors = [
+  { name="Grace Gjerde", email="" },
+  { name="Aryaman Gupta", email=""},
+  { name="Becky Tichford", email=""},
+]
+description = "A Python package to identify and characterize transient acceleration events at North Lake in Southwest Greenland."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/grace-gjerde/Greenland_Transient_Velocity_Event_Characterizer"
+Issues = "https://github.com/grace-gjerde/Greenland_Transient_Velocity_Event_Characterizer/issues"
