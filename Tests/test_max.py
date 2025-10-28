@@ -2,7 +2,9 @@
 
 import numpy as np
 from Analysis.Tools.find_max import max_vel
-from Analysis.load_data import df, stations
+from Analysis.load_data import vel_data, read_stations
+df=vel_data()
+stations=read_stations()
 
 def test_max_integers():
     test_input = np.array([1, 2, 3, 4])
