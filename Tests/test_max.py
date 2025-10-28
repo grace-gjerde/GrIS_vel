@@ -3,6 +3,8 @@
 import numpy as np
 from Analysis.Tools.find_max import max_vel
 from Analysis.load_data import vel_data, read_stations, extract
+
+extract()
 df=vel_data()
 stations=read_stations()
 
