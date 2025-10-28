@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 import load_data 
 
+load_data.extract()
 df=load_data.vel_data()
 stations=load_data.read_stations()
 
