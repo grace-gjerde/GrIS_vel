@@ -3,22 +3,23 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import zipfile
 
-zip_path = Path("../Data/Glacier.zip")  # your .zip file
-extract_dir = Path("../Data/")          # folder to extract to
+def extract():
+    zip_path = Path("Data/Glacier.zip")  # your .zip file
+    extract_dir = Path("Data/")          # folder to extract to
 
-with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-    zip_ref.extractall(extract_dir)
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_dir)
+    print("Extraction complete.")
 
-print("Extraction complete.")
+def read_stations():
+    df = pd.read_csv("../Data/Glacier/Glacier_transient_vel.csv")
+    #Identify stations and their velocity data
+    stations = []
+    for col in df.columns:
+        if "_DOY" in col:
+            station = col.split("_DOY")[0]
+            vel_col = f"{station}_VEL"
+            if vel_col in df.columns:
+                stations.append(station)
 
-df = pd.read_csv("../Data/Glacier/Glacier_transient_vel.csv")
-#Identify stations and their velocity data
-stations = []
-for col in df.columns:
-    if "_DOY" in col:
-        station = col.split("_DOY")[0]
-        vel_col = f"{station}_VEL"
-        if vel_col in df.columns:
-            stations.append(station)
-
-print(stations)
+    return stations

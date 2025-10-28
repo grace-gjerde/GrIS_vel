@@ -1,35 +1,26 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 from pathlib import Path
 import zipfile
 
-zip_path = Path("../Data/Glacier.zip")  # your .zip file
-extract_dir = Path("../Data/")          # folder to extract to
+def model(station_name="NLBS", DOY=6):
+    df = pd.read_csv("Data/Glacier/Glacier_transient_vel.csv")
+    print(f"station selected for linear fit is {station_name}")
 
-with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-    zip_ref.extractall(extract_dir)
+    doy_col = f"{station_name}_DOY"
+    vel_col = f"{station_name}_VEL"
 
-print("Extraction complete.")
+    x=df[doy_col].dropna()
+    y=df[vel_col].dropna()
+    mdl_frame = pd.DataFrame({"DOY": x, "Vel": y})
+    mdl_select = mdl_frame[mdl_frame["DOY"].apply(int) == DOY]
 
-df = pd.read_csv("../Data/Glacier/Glacier_transient_vel.csv")
-#Identify stations and their velocity data
-stations = []
-station_name = "NLBS"
-for col in df.columns:
-    if "_DOY" in col:
-        station = col.split("_DOY")[0]
-        vel_col = f"{station}_VEL"
-        if vel_col in df.columns:
-            stations.append(station)
 
-print(stations)
-print(f"station selected for linear fit is {station_name}")
+    model = LinearRegression()
+    model.fit(mdl_select[["DOY"]], mdl_select["Vel"])
 
-doy_col = f"{station}_DOY"
-vel_col = f"{station}_VEL"
-
-x=df[doy_col]
-y=df[vel_col]
+    return(float(model.coef_), model.intercept_)
 
 
 

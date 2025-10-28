@@ -2,3 +2,4 @@ venv/*
 venv
 Data/Glaciers
 Data/Glaciers/*
+.github/workflows/basic.yml
