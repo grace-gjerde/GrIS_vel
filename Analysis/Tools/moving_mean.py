@@ -1,5 +1,4 @@
-#Tools/moving_mean.py
-#moving mean function (in days) - FINAL
+#moving mean function (in days)
 import numpy as np
 
 def moving_mean(velocity_data, time_data, window_days):
