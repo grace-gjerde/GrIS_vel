@@ -54,22 +54,11 @@ window_days = float(input("Enter moving mean window size (days): "))
 velocity_data = df[vel_col].dropna().to_numpy()
 time_data = df[time_col].dropna().to_numpy()
 
-
 #calculate average timestep and window size in points
 avg_timestep_days = np.mean(np.diff(time_data))
 window_size_points = int(window_days/avg_timestep_days)
-
 
 moving_mean = pd.Series(velocity_data).rolling(window=window_size_points).mean().dropna().to_numpy()
 
 #trim time array to match moving mean length
 times_for_mean = time_data[:len(moving_mean)]
-
-plt.figure(figsize=(10,5))
-plt.plot(time_data, velocity_data, color="grey", label=f"{station} GPS Data")
-plt.plot(times_for_mean, moving_mean, color="red", label=f"{window_days}-day Moving Mean")
-plt.xlabel("Time (DOY)")
-plt.ylabel("Velocity (m/year)")
-plt.title(f"Smoothed Time Series for Station {station}")
-plt.legend()
-plt.savefig("velocity_moving_mean.png", dpi=300)
