@@ -1,5 +1,4 @@
-
-from moving_mean import moving_mean 
+from moving_means import means
 
 # 1 data point per 1 day window
 def test_moving_mean():
