@@ -30,3 +30,14 @@ plt.savefig("velocity_timeseries.png", dpi=300)
 plt.show()
 
 print("velocity_timeseries.png saved")
+
+from run_analysis import time_data, velocity_data, times_for_mean, window_days, station, moving_mean
+
+plt.figure(figsize=(10,5))
+plt.plot(time_data, velocity_data, color="grey", label=f"{station} GPS Data")
+plt.plot(times_for_mean, moving_mean, color="red", label=f"{window_days}-day Moving Mean")
+plt.xlabel("Time (DOY)")
+plt.ylabel("Velocity (m/year)")
+plt.title(f"Smoothed Time Series for Station {station}")
+plt.legend()
+plt.savefig("velocity_moving_mean.png", dpi=300)
