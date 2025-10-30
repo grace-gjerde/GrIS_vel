@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 from pathlib import Path
+from Stations import Station_obj
 import load_data 
 
 load_data.extract()
@@ -19,30 +20,62 @@ sys.path.insert(0, str(tools_path))
 #import functions
 from Tools.find_max import max_vel
 from Tools.find_min import find_min
+from Tools.find_mean import find_mean
 from Tools.moving_mean import moving_mean
 
 #results
 results = {}
+station_data = []
 
 for station in stations:
+    time_col = f"{station}_DOY"
     vel_col = f"{station}_VEL"
+
+    time_data = df[time_col].values
     velocity_data = df[vel_col].values
     
     station_max = max_vel(velocity_data)
     station_min = find_min(velocity_data)
-    
-    results[station] =  {"max": station_max, "min": station_min}
+    station_mean = find_mean(velocity_data)
 
-#print results
-for station, stats in results.items():
-    print(f"{station}: {stats}")
+    station_data.append(Station_obj(station, time_data, velocity_data, station_min, station_max, station_mean))
 
-print(df.columns.tolist())
+for station in station_data:
+    print(station)
 
+
+#show time series for an arbitrary number of stations
+to_plot = []
+plot_station = ""
+all_choice = input("Do you want to see the time series for all stations? (y/n)")
+if all_choice.lower() == "y":
+    for station in station_data:
+        to_plot.append(station)
+else:
+    while plot_station != "end":
+        plot_station = input("Enter a station you want to see a time series for (FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS). Print 'end' to end adding stations:")
+        for station in station_data:
+            if station.name == plot_station:
+                to_plot.append(station)
+
+plt.figure(figsize=(10,6))
+
+for station in to_plot:
+    #plt.plot(x, y, marker='.', markersize=3, label=station)
+    plt.scatter(station.times, station.velocities, s=0.5, label=station.name)
+
+plt.title("2011 Velocity Time Series", fontsize=14)
+plt.xlabel("Day of Year (DOY)", fontsize=12)
+plt.ylabel("Velocity (m/year)", fontsize=12)
+plt.xlim(150, 300)
+plt.ylim(0, 400)
+plt.legend(title="Stations", fontsize=9)
+plt.tight_layout()
+plt.savefig("velocity_times_eries.png")
 
 #run the moving mean time series per station
 
-#ask user for station of interest
+#ask user for stations of interest
 station = input("Enter station ((FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS): ").upper()
 vel_col = f"{station}_VEL"
 time_col = f"{station}_DOY"
