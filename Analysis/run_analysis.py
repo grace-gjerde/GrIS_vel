@@ -22,6 +22,7 @@ from Tools.find_max import max_vel
 from Tools.find_min import find_min
 from Tools.find_mean import find_mean
 from Tools.moving_mean import moving_mean
+from plotting import plot_timeseries
 
 #results
 results = {}
@@ -43,14 +44,15 @@ for station in stations:
 for station in station_data:
     print(station)
 
+print(df.columns.tolist())
+
 
 #show time series for an arbitrary number of stations
 to_plot = []
 plot_station = ""
 all_choice = input("Do you want to see the time series for all stations? (y/n)")
 if all_choice.lower() == "y":
-    for station in station_data:
-        to_plot.append(station)
+    to_plot = station_data
 else:
     while plot_station != "end":
         plot_station = input("Enter a station you want to see a time series for (FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS). Print 'end' to end adding stations:")
@@ -58,20 +60,7 @@ else:
             if station.name == plot_station:
                 to_plot.append(station)
 
-plt.figure(figsize=(10,6))
-
-for station in to_plot:
-    #plt.plot(x, y, marker='.', markersize=3, label=station)
-    plt.scatter(station.times, station.velocities, s=0.5, label=station.name)
-
-plt.title("2011 Velocity Time Series", fontsize=14)
-plt.xlabel("Day of Year (DOY)", fontsize=12)
-plt.ylabel("Velocity (m/year)", fontsize=12)
-plt.xlim(150, 300)
-plt.ylim(0, 400)
-plt.legend(title="Stations", fontsize=9)
-plt.tight_layout()
-plt.savefig("velocity_times_eries.png")
+plot_timeseries(to_plot)
 
 #run the moving mean time series per station
 
