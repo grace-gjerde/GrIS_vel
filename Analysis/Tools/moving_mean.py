@@ -1,5 +1,6 @@
 #moving mean function (in days)
 import numpy as np
+import pandas as pd
 
 def moving_mean(velocity_data, time_data, window_days):
  
@@ -11,9 +12,12 @@ def moving_mean(velocity_data, time_data, window_days):
     window_size_points = int(window_days / avg_timestep_days)
         
     #calculate moving mean
+    means = pd.Series(velocity_data).rolling(window=window_size_points).mean().dropna().to_numpy()
+    '''
     means = []
     for i in range(len(velocity_data) - window_size_points + 1):
         window = velocity_data[i:i+window_size_points]
         window_mean = sum(window) / window_size_points
         means.append(window_mean)
+    '''
     return means
