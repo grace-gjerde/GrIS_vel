@@ -55,24 +55,18 @@ def main(file=None, station_name=None, window_days=None, outdir=None):
     station_data = []
     station_mean_name = station_name
 
-    if station_name != None:
-        for station in station_data:
-                if station.name == station_name:
-                    station_data.append(station)
-    
-    else:
-        for station in stations:
-            time_col = f"{station}_DOY"
-            vel_col = f"{station}_VEL"
+    for station in stations:
+        time_col = f"{station}_DOY"
+        vel_col = f"{station}_VEL"
 
-            time_data = df[time_col].values
-            velocity_data = df[vel_col].values
-    
-            station_max = max_vel(velocity_data)
-            station_min = find_min(velocity_data)
-            station_mean = find_mean(velocity_data)
+        time_data = df[time_col].values
+        velocity_data = df[vel_col].values
 
-            station_data.append(Station_obj(station, time_data, velocity_data, station_min, station_max, station_mean))
+        station_max = max_vel(velocity_data)
+        station_min = find_min(velocity_data)
+        station_mean = find_mean(velocity_data)
+
+        station_data.append(Station_obj(station, time_data, velocity_data, station_min, station_max, station_mean))
 
     for station in station_data:
         print(station)
