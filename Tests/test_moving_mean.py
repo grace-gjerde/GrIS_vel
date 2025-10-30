@@ -1,3 +1,6 @@
+#test_moving_mean.py
+
+#Import modules
 from Analysis.Tools.moving_mean import moving_mean
 
 # 1 data point per 1 day window
