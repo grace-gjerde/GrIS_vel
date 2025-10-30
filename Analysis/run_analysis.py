@@ -32,7 +32,7 @@ from Tools.moving_mean import moving_mean
 
 def main(file=None, station=None, window_days=None, outdir=None):
     """
-    Run Greenland glacier velocity analysis.
+    Run Greenland glacier velocity analysis (min, max, moving mean).
     """
     if file is None:
         file = data_file
