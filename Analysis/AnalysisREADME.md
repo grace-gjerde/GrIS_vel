@@ -7,9 +7,9 @@ These functions find the minimum, maximum, and mean velocity, whilst a further f
 **How to Run**\
 run_analysis can be run from the terminal with a CLI\
 \
-**Example: bash python3**
+**Example:**
 \
-python3 run_analysis.py --station FL03 --window 20
+```python3 run_analysis.py --station FL03 --window 20```
 
 \
 The main script for analysis is run_analysis.py located in the Analysis/ folder. It allows you to analyze glacier velocity data and calculate moving averages for specific stations. **Note:** `run_analysis.py` is intended to be run as a script and is wrapped in `if __name__ == "__main__":`.
@@ -18,7 +18,7 @@ Example:
 ```bash 
 python3 Analysis/run_analysis.py --file <input_csv> --station <station_id> --window <window_days> --outdir <output_directory>
 ```
-
+\
 Arguments:
 -h, --help	Show help message and exit
 --file FILE, -f FILE	Path to input CSV file (should contain columns: date, velocity, station)
@@ -38,11 +38,12 @@ Analyze all stations using default window and save outputs:
 python3 Analysis/run_analysis.py -f data/glacier_velocity.csv --outdir results/
 ```
 
-
+\
 You can also use individual functions by importing them:
 
 Example:
 ```python 
 from Analysis.Tools.moving_mean import moving_mean
 ```
+
 
