@@ -49,12 +49,17 @@ def main(file=None, station_name=None, window_days=None, outdir=None):
     outdir.mkdir(parents=True, exist_ok=True)
     print(f"Outputs will be saved in: {outdir}")
 
-    
+    #Loading in station names and .csv file to extract data by station
     df = load_data.vel_data()
     stations = load_data.read_stations()
     station_data = []
     station_mean_name = station_name
 
+    #If station name is provided in command line, all subsequent analysis only performed on that station
+    if station_name != None:
+        stations = [station_name]
+
+    #Using station names to extract data from csv
     for station in stations:
         time_col = f"{station}_DOY"
         vel_col = f"{station}_VEL"
@@ -68,6 +73,7 @@ def main(file=None, station_name=None, window_days=None, outdir=None):
 
         station_data.append(Station_obj(station, time_data, velocity_data, station_min, station_max, station_mean))
 
+    #Showing data for each station to enable user to decide which stations they want to see more information for (or the chosen station if was selected in command line)
     for station in station_data:
         print(station)
 
@@ -80,7 +86,7 @@ def main(file=None, station_name=None, window_days=None, outdir=None):
             to_plot = station_data
         else:
             while plot_station != "end":
-                plot_station = input("Enter a station you want to see a time series for (FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS). Print 'end' to end adding stations:")
+                plot_station = input("Enter a station you want to see a time series for (FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS). Enter 'end' to end adding stations:")
                 for station in station_data:
                     if station.name == plot_station:
                         to_plot.append(station)
@@ -106,7 +112,7 @@ def main(file=None, station_name=None, window_days=None, outdir=None):
 
     plot_moving_mean(station_mean, window_days)
     
-
+#Passing arguments to function automatically via command line
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run glacier velocity analysis.")
     parser.add_argument("--file", "-f", type=str, default=None, help="Path to input CSV file")
