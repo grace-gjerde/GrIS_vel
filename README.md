@@ -20,13 +20,24 @@ git clone https://github.com/<username>/GrIS_vel.git
 cd GrIS_vel
 ```
 
+install dependencies
+```bash
+pip install -r requirements.txt
+```
+
 Create and activate a virtual environment:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate 
 ```
 
-install dependencies
-```bash
-pip install -r requirements.txt
+Use in command line interface:
+```
+pip install -i https://test.pypi.org/simple/ GrIS-vel==0.1.2
+run_analysis --file --station --window --outdir
+
+    --file: Path to input 
+    --station: Specify station to analyze
+    --window: Moving mean window size in days
+    --outdir: Directory to save outputs
 ```
