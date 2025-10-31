@@ -55,6 +55,9 @@ def main(file=None, station_name=None, window_days=None, outdir=None):
     station_data = []
     station_mean_name = station_name
 
+    if station_name != None:
+        stations = [station_name]
+
     for station in stations:
         time_col = f"{station}_DOY"
         vel_col = f"{station}_VEL"
@@ -80,7 +83,7 @@ def main(file=None, station_name=None, window_days=None, outdir=None):
             to_plot = station_data
         else:
             while plot_station != "end":
-                plot_station = input("Enter a station you want to see a time series for (FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS). Print 'end' to end adding stations:")
+                plot_station = input("Enter a station you want to see a time series for (FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS). Enter 'end' to end adding stations:")
                 for station in station_data:
                     if station.name == plot_station:
                         to_plot.append(station)
