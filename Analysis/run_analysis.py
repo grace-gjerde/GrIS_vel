@@ -34,7 +34,7 @@ from plotting import plot_timeseries, plot_moving_mean
 
 def main(file=None, station_name=None, window_days=None, outdir=None):
     """
-    Run Greenland glacier velocity analysis.
+    Run Greenland glacier velocity analysis (min, max, moving mean).
     """
     if file is None:
         file = data_file
