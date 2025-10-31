@@ -1,5 +1,5 @@
 [project]
-name = "Greenland_Transient_Velocity_Event_Characterizer"
+name = "GrIS_vel"
 version = "0.0.1"
 authors = [
   { name="Grace Gjerde", email="grace.gjerde@reuben.ox.ac.uk"},
