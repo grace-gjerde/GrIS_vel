@@ -1,11 +1,11 @@
 **GrIS_vel: Glacier Velocity Analysis Tool**  
 \
 GrIS_vel is a Python-based toolkit for analyzing glacier velocity data. It includes functionality to calculate moving averages, perform station-specific analysis, and generate plots.
-\
+
 
 ## Package overview
 Python package to identify and characterize transient acceleration events at North Lake in Southwest Greenland. This package is structured as follows:
-\
+
 - **`Data/`** Data from stations around North Lake. This is also where results of data analysis are stored.
 - **`Analysis/`** Python scripts that take the data in Data/ as an input, and provide an analysis of transient acceleration events.
 - **`Tests/`** Suite of tests to check that the Analysis script is working correctly.
