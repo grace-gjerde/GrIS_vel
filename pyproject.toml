@@ -24,7 +24,7 @@ dependencies = [
   "iniconfig==2.3.0",
   "joblib==1.5.2",
   "kiwisolver==1.4.9",
-  "atplotlib==3.10.7",
+  "matplotlib==3.10.7",
   "numpy==2.3.4",
   "packaging==25.0",
   "pandas==2.3.3",
