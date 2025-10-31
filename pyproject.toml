@@ -1,6 +1,6 @@
 [project]
 name = "GrIS_vel"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Grace Gjerde", email="grace.gjerde@reuben.ox.ac.uk"},
   { name="Aryaman Gupta", email="mert4366@ox.ac.uk"},
