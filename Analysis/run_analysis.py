@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 from pathlib import Path
+from Stations import Station_obj
 import load_data 
 import argparse
 import os
@@ -27,10 +28,11 @@ data_file = data_folder /"Glacier_transient_vel.csv"
 
 #import analysis tools
 from Tools.find_max import max_vel
-from Tools.find_min import find_min 
-from Tools.moving_mean import moving_mean
+from Tools.find_min import find_min
+from Tools.find_mean import find_mean
+from plotting import plot_timeseries, plot_moving_mean
 
-def main(file=None, station=None, window_days=None, outdir=None):
+def main(file=None, station_name=None, window_days=None, outdir=None):
     """
     Run Greenland glacier velocity analysis (min, max, moving mean).
     """
@@ -50,52 +52,59 @@ def main(file=None, station=None, window_days=None, outdir=None):
     
     df = load_data.vel_data()
     stations = load_data.read_stations()
-    results = {}
+    station_data = []
+    station_mean_name = station_name
 
-    for s in stations:
-        vel_col = f"{s}_VEL"
+    for station in stations:
+        time_col = f"{station}_DOY"
+        vel_col = f"{station}_VEL"
+
+        time_data = df[time_col].values
         velocity_data = df[vel_col].values
-        
+
         station_max = max_vel(velocity_data)
         station_min = find_min(velocity_data)
-        
-        results[s] =  {"max": station_max, "min": station_min}
+        station_mean = find_mean(velocity_data)
 
-    #print results
-    for s, stats in results.items():
-        print(f"{s}: {stats}")
+        station_data.append(Station_obj(station, time_data, velocity_data, station_min, station_max, station_mean))
 
-    print(df.columns.tolist())
+    for station in station_data:
+        print(station)
+
+    #show time series for an arbitrary number of stations
+    to_plot = []
+    plot_station = ""
+    if station_name == None:
+        all_choice = input("Do you want to see the time series for all stations? (y/n)")
+        if all_choice.lower() == "y":
+            to_plot = station_data
+        else:
+            while plot_station != "end":
+                plot_station = input("Enter a station you want to see a time series for (FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS). Print 'end' to end adding stations:")
+                for station in station_data:
+                    if station.name == plot_station:
+                        to_plot.append(station)
+    else:
+        to_plot = station_data
+
+    plot_timeseries(to_plot)
 
     #run the moving mean time series per station
-
-    #ask user for station of interest
-    if station is None:
-        station = input("Enter station ((FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS): ").upper()
-    vel_col = f"{station}_VEL"
-    time_col = f"{station}_DOY"
+    #ask user for stations of interest
+    if station_name is None:
+        station_mean_name = input("Moving mean \n Enter station ((FL03, FL04, NL01, NL02, NL03, NL04, NL06, NL07, NL08, NL09, NL10, NL11, NL12, NL13, NLBS): ").upper()
+    else:
+        station_mean_name = station_name
 
     #ask user for moving mean window size in days
     if window_days is None:
         window_days = float(input("Enter moving mean window size (days): "))
     
+    for station in station_data:
+        if station.name == station_mean_name:
+            station_mean = station
 
-    #extract station data and remove NaNs
-    velocity_data = df[vel_col].dropna().to_numpy()
-    time_data = df[time_col].dropna().to_numpy()
-
-    #calculate average timestep and window size in points
-    avg_timestep_days = np.mean(np.diff(time_data))
-    window_size_points = int(window_days/avg_timestep_days)
-
-    moving_mean = pd.Series(velocity_data).rolling(window=window_size_points).mean().dropna().to_numpy()
-
-    #trim time array to match moving mean length
-    times_for_mean = time_data[:len(moving_mean)]
-    print(f"{station} moving mean calculated")
-
-    return velocity_data, time_data, moving_mean, times_for_mean, station, window_days
-
+    plot_moving_mean(station_mean, window_days)
     
 
 if __name__ == "__main__":
@@ -106,4 +115,4 @@ if __name__ == "__main__":
     parser.add_argument("--outdir", type=str, default=None, help="Directory to save outputs")
     args = parser.parse_args()
 
-    main(file=args.file, station=args.station, outdir=args.outdir, window_days=args.window)
+    main(file=args.file, station_name=args.station, outdir=args.outdir, window_days=args.window)
