@@ -10,8 +10,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 from pathlib import Path
-from Stations import Station_obj
-import load_data 
+from Analysis.Stations import Station_obj
+from Analysis import load_data
 import argparse
 import os
 
@@ -27,10 +27,10 @@ data_folder = root_dir /"Data"/"Glacier"
 data_file = data_folder /"Glacier_transient_vel.csv"
 
 #import analysis tools
-from Tools.find_max import max_vel
-from Tools.find_min import find_min
-from Tools.find_mean import find_mean
-from plotting import plot_timeseries, plot_moving_mean
+from Analysis.Tools.find_max import max_vel
+from Analysis.Tools.find_min import find_min
+from Analysis.Tools.find_mean import find_mean
+from Analysis.plotting import plot_timeseries, plot_moving_mean
 
 def main(file=None, station_name=None, window_days=None, outdir=None):
     """

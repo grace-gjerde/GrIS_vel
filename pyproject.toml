@@ -1,6 +1,6 @@
 [project]
 name = "GrIS_vel"
-version = "0.0.2"
+version = "0.1.2"
 authors = [
   { name="Grace Gjerde", email="grace.gjerde@reuben.ox.ac.uk"},
   { name="Aryaman Gupta", email="mert4366@ox.ac.uk"},
@@ -39,7 +39,6 @@ dependencies = [
   "six==1.17.0",
   "threadpoolctl==3.6.0",
   "tzdata==2025.2",
-  "argparse==1.4.0",
 ]
 
 [project.scripts]
@@ -50,4 +49,7 @@ Homepage = "https://github.com/grace-gjerde/Greenland_Transient_Velocity_Event_C
 Issues = "https://github.com/grace-gjerde/Greenland_Transient_Velocity_Event_Characterizer/issues"
 
 [tool.setuptools.packages.find]
-include = ["Data", "Analysis", "Tests"]
+include = ["Data", "Analysis", "Analysis.Tools", "Tests"]
+
+[tool.setuptools.package-data]
+Data = ["*.zip"]
