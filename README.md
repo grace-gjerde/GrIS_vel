@@ -33,7 +33,7 @@ source .venv/bin/activate
 
 Use in command line interface:
 ```
-pip install -i https://test.pypi.org/simple/ GrIS-vel==0.0.1
+pip install -i https://test.pypi.org/simple/ GrIS-vel==0.1.2
 run_analysis --file --station --window --outdir
 
     --file: Path to input 
