@@ -27,7 +27,7 @@ data_file = data_folder /"Glacier_transient_vel.csv"
 
 #import analysis tools
 from Tools.find_max import max_vel
-from Tools.find_min import find_min
+from Tools.find_min import find_min 
 from Tools.moving_mean import moving_mean
 
 def main(file=None, station=None, window_days=None, outdir=None):
